@@ -1,0 +1,20 @@
+{
+  "rooms": [
+    {
+      "name": "Холл",
+      "description": "Вы в главном холле. Доска объявлений исписана странными символами.",
+      "exits": [ "north" ],
+      "items": [ "battery", "gas_can" ],
+      "enemies": [],
+      "is_locked": false
+    },
+    {
+      "name": "Аудитория с Они",
+      "description": "Просторная аудитория с японскими демонами Они...",
+      "exits": [ "south", "east" ],
+      "items": [ "health_potion" ],
+      "enemies": [ "Oni" ],
+      "is_locked": false
+    }
+  ]
+}
