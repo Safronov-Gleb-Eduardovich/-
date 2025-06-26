@@ -71,5 +71,8 @@
     <None Include="..\Игра на C++\Debug\university_map.json">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="university_map.json">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

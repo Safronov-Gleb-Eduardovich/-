@@ -149,6 +149,7 @@
     <None Include="..\Игра на C++\Debug\dialogues.json" />
     <None Include="..\Игра на C++\Debug\university_map.json" />
     <None Include="packages.config" />
+    <None Include="university_map.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
