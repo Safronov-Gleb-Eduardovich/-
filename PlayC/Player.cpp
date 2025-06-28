@@ -3,16 +3,16 @@
 
 Player::Player(Room* startRoom) : currentRoom(startRoom), health(100) {}
 
-bool Player::move(const std::string& direction) {
-    for (const auto& exit : currentRoom->exits) {
-        if (exit == direction) {
-            // Логика перехода в другую комнату
-            return true;
-        }
-    }
-    std::cout << "Туда нельзя пройти!\n";
-    return false;
-}
+//bool Player::move(const std::string& direction) {
+//    for (const auto& exit : currentRoom.floor) {
+//        if (exit == direction) {
+//            // Логика перехода в другую комнату
+//            return true;
+//        }
+//    }
+//    std::cout << "Туда нельзя пройти!\n";
+//    return false;
+//}
 
 void Player::addItem(const Item& item) {
     inventory.push_back(item);
