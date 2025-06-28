@@ -65,10 +65,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\Игра на C++\Debug\dialogues.json">
+    <None Include="..\Игра на C++\Debug\university_map.json">
       <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="..\Игра на C++\Debug\university_map.json">
+    <None Include="items.json">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="enemy.json">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="move.json">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="CombatSystem.json">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>

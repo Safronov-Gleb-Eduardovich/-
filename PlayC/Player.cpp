@@ -8,7 +8,6 @@ void Player::addItem(const Item& item) {
 }
 
 void Player::showInventory() const {
-    std::cout << "Инвентарь:\n";
     for (const auto& item : inventory) {
         std::cout << "- " << item.getName()
             << " (" << item.getCharges() << "/"
@@ -29,11 +28,10 @@ void Player::rechargeItem(const std::string& itemName, int amount) {
     for (auto& item : inventory) {
         if (item.getName() == itemName) {
             item.recharge(amount);
-            std::cout << itemName << " перезаряжен!\n";
+            std::cout << itemName << "\n";
             return;
         }
     }
-    std::cout << "Предмет не найден.\n";
 }
 
 int Player::getHealth() const {

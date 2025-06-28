@@ -1,25 +1,37 @@
 #include "CombatSystem.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 bool CombatSystem::fight(Player& player, Enemy& enemy) {
     while (enemy.health > 0 && player.getHealth() > 0) {
-        player.showInventory();
-        std::cout << "Выберите предмет для атаки: ";
+
+        std::ifstream file("CombatSystem.json");
+        nlohmann::json data;
+
+        file >> data;
+
+        file.close();
+
 
         std::string chosenItem;
-        std::cin >> chosenItem;
-
-        if (player.useItem(chosenItem)) {
-            if (enemy.takeDamage(chosenItem)) {
-                std::cout << "Попадание! " << enemy.name << " HP: " << enemy.health << "\n";
+        while(chosenItem != "ready"){
+            std::cout << data["choose_item"];
+            player.showInventory();
+            std::cin >> chosenItem;
+            if (player.useItem(chosenItem)) {
+                if (enemy.takeDamage(chosenItem)) {
+                    std::cout << data["hit"] << enemy.name << " HP: " << enemy.health << "\n";
+                }
+                else {
+                    std::cout << data["no_hit"];
+                }
             }
             else {
-                std::cout << "Неэффективно! ";
+                std::cout << data["reloud"];
             }
         }
-        else {
-            std::cout << "Недостаточно зарядов или предмета!\n";
-        }
+        player.takeDamage(enemy.damage);
     }
     return enemy.health <= 0;
 }

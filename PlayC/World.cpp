@@ -43,8 +43,8 @@ World::World(const std::string& filePath) {
     std::uniform_int_distribution<int> dist(1, 3);
 
     for (int floor = 1; floor != 4; floor++) {
-        for (int N = 1; N != dist(gen); N++) {
-            int type = 0;
+        for (int N = 1; N != dist(gen)+1; N++) {
+            int type = dist(gen)-1;
             Room room(data["rooms"][type]["name"], floor);
             for (const auto& item : data["rooms"][type]["items"]) {
                 room.addItem(item);
@@ -64,6 +64,7 @@ World::World(const std::string& filePath) {
         Room room(data["stairs"]["name"], floor);
         rooms[floor].push_back(room);
     }
+    file.close();
 }
 
 Room World::getStartRoom() {

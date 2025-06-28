@@ -26,5 +26,13 @@
 	{
 		"name": "go up",
 		"progect_cout": "подняться"
+	},
+	{
+		"name": "death",
+		"progect_cout": "вы не сдали экзамен\n"
+	},
+	{
+		"name": "have",
+		"progect_cout": "В аудитории находятся: \n"
 	}
 ]

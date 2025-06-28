@@ -146,8 +146,11 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Игра на C++\Debug\dialogues.json" />
     <None Include="..\Игра на C++\Debug\university_map.json" />
+    <None Include="CombatSystem.json" />
+    <None Include="enemy.json" />
+    <None Include="items.json" />
+    <None Include="move.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

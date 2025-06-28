@@ -1,5 +1,7 @@
 #include "Room.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 Room::Room(std::string name, int floor)
     : name(name), floor(floor) {}
@@ -24,7 +26,13 @@ void Room::addInteractables(const std::string& interactable, const std::string& 
 
 void Room::getInteractables()
 {
-    std::cout << "В аудитории находятся: \n";
+    std::ifstream file("move.json");
+    nlohmann::json m;
+
+    file >> m;
+
+    file.close();
+    std::cout << m["have"];
     for (const std::string interactable : interactables) {
         std::cout << interactable << "\n";
     }
