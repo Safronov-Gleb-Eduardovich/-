@@ -62,9 +62,6 @@
     <ClInclude Include="World.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -74,20 +71,5 @@
     <None Include="..\Игра на C++\Debug\university_map.json">
       <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="university_map.json">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include=".editorconfig" />
-    <None Include="..\..\..\..\Desktop\items.json">
-      <Filter>Исходные файлы</Filter>
-    </None>
-    <None Include="..\..\..\..\Desktop\enemy.json">
-      <Filter>Исходные файлы</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PlayC.rc">
-      <Filter>Файлы ресурсов</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

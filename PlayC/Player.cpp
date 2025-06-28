@@ -1,18 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(Room* startRoom) : currentRoom(startRoom), health(100) {}
-
-bool Player::move(const std::string& direction) {
-    for (const auto& exit : currentRoom->exits) {
-        if (exit == direction) {
-            // Логика перехода в другую комнату
-            return true;
-        }
-    }
-    std::cout << "Туда нельзя пройти!\n";
-    return false;
-}
+Player::Player(Room startRoom) : currentRoom(startRoom), health(100) {}
 
 void Player::addItem(const Item& item) {
     inventory.push_back(item);
@@ -55,6 +44,11 @@ void Player::takeDamage(int damage) {
     health -= damage;
 }
 
-Room* Player::getCurrentRoom() const {
+Room Player::getCurrentRoom() const {
     return currentRoom;
 }
+
+void Player::changingCurrentRoom(Room Room) {
+    currentRoom = Room;
+}
+

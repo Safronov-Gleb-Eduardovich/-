@@ -5,17 +5,17 @@
 
 class Player {
 private:
-    Room* currentRoom;
+    Room currentRoom;
     std::vector<Item> inventory;
     int health;
 public:
-    Player(Room* startRoom);
-    bool move(const std::string& direction);
+    Player(Room startRoom);
     void addItem(const Item& item);
     void showInventory() const;
     bool useItem(const std::string& itemName);
     void rechargeItem(const std::string& itemName, int amount);
     int getHealth() const;
     void takeDamage(int damage);
-    Room* getCurrentRoom() const;
+    Room getCurrentRoom() const;
+    void changingCurrentRoom(Room Room);
 };

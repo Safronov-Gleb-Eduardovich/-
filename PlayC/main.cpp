@@ -1,114 +1,100 @@
 ﻿#include <iostream>
 #include <locale>
-#include<fstream>
-#include <conio.h> 
-#include <vector>
-#include <Windows.h>
-
-
-class StaticMenu {
-private:
-
-    std::vector<std::string> items;
-    int selected = 0;
-    HANDLE hConsole;
-
-    void showMenu() {
-
-        COORD pos = { 0, 18 };
-        SetConsoleCursorPosition(hConsole, pos);
-        DWORD written;
-        FillConsoleOutputCharacter(hConsole, ' ', 80 * (25 - 18), pos, &written);
-
-        for (int i = 0; i < items.size(); ++i) {
-            SetConsoleCursorPosition(hConsole, { 45, (SHORT)(8 + i) });
-            std::cout << (i == selected ? "> " : "  ") << items[i];
-        }
-    }
-
-public:
-    StaticMenu(const std::vector<std::string>& options) : items(options) {
-        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_CURSOR_INFO cursorInfo = { 1, FALSE };
-        SetConsoleCursorInfo(hConsole, &cursorInfo);
-
-        SetConsoleCursorPosition(hConsole, { 0, 18 });
-    }
-
-    int run() {
-        showMenu();
-
-        while (true) {
-            if (GetAsyncKeyState(VK_UP) & 0x8000) {
-                if (selected > 0) {
-                    selected--;
-                    showMenu();
-                    while (GetAsyncKeyState(VK_UP) & 0x8000);
-                }
-            }
-            else if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
-                if (selected < items.size() - 1) {
-                    selected++;
-                    showMenu();
-                    while (GetAsyncKeyState(VK_DOWN) & 0x8000);
-                }
-            }
-            else if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
-                return selected;
-            }
-
-            Sleep(10);
-        }
-    }
-};
+#include "World.h"
+#include "Player.h"
+#include "CombatSystem.h"
+#include "DialogueSystem.h"
+#include <windows.h>
 
 int main() {
-    SetConsoleOutputCP(CP_UTF8);  // Устанавливаем UTF-8 для вывода
-    SetConsoleCP(CP_UTF8);       // Устанавливаем UTF-8 для ввода
     setlocale(LC_ALL, "ru_RU.UTF-8");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(1251);
 
-    // Получаем хэндл консоли
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    World world("university_map.json");
+    Player player(world.getStartRoom());
+    DialogueSystem dialogues;
+    dialogues.loadDialogues("dialogues.json");
+    // Добавляем стартовые предметы
+    player.addItem(Item("ultrasonic_remote", 5));
+    player.addItem(Item("flamethrower", 10));
+    player.addItem(Item("battery", 3));
 
-    // Меняем цвет текста на зелёный
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+    while (true) {
+        // Отображение текущей комнаты
+        std::cout << "--- " << player.getCurrentRoom().name << " ---\n";
+        for (const auto& description : player.getCurrentRoom().descriptions) {
+            std::cout << description << "\n";
+        }
+        
+        // Проверка на врагов
+        if (!player.getCurrentRoom().enemies.empty()) {
+            Enemy enemy(player.getCurrentRoom().enemies[0], "flamethrower", 30);
+            CombatSystem::fight(player, enemy);
+        }
 
-    std::ifstream file("C:\\Users\\User\\Downloads\\sec.txt", std::ios::binary);
-
-    if (!file.is_open()) {
-        std::cerr << "Не удалось открыть файл!" << std::endl;
-        return 1;
-    }
-
-    // Перемещаем указатель в конец файла, чтобы узнать его размер
-    file.seekg(0, std::ios::end);
-    std::streamsize size = file.tellg();
-    file.seekg(0, std::ios::beg);
-
-    // Читаем весь файл в строку
-    std::string buffer(size, '\0');
-    if (file.read(&buffer[0], size)) {
-        // Выводим всё содержимое сразу
-        std::cout << buffer;
-    }
-
-    file.close();
-
-    //Явно прописана кодировка utf-8  
-    std::vector<std::string> options = {
-        u8"1. Зайти в универ.",
-        u8"2. Не сегодня. Пары? Сегодня я их для себя отменил."
-    };
-
-    StaticMenu menu(options);
-    int choice = menu.run();
-    system("cls");
-
-    SetConsoleCursorPosition(hConsole, { 0, 0 });  // Устанавливаем курсор в начало
-
-    if (choice == 0) {
-
-        std::cout << u8"Привет\n";
+            // Ввод команды
+        std::string command;
+        std::cout << "> ";
+        std::cin >> command;
+        if (command == "идти") {
+            std::string direction;
+            std::cin >> direction;
+            for (const auto& room : world.getNowFloor(player.getCurrentRoom().floor)) {
+                if (direction == "Лестница") {
+                    if (room.floor == 0) {
+                        std::cout << "KKKK" << "\n";
+                        player.changingCurrentRoom(world.getNowFloor(1)[world.getNowFloor(1).size() - 1]);
+                        break;
+                    }
+                    else if (room.floor != 0 and room.floor != 4) {
+                        std::cout << "Подняться или спуситься?\n";
+                        std::cout << "> ";
+                        std::cin >> command;
+                        if (command == "подняться") {
+                            std::cout << "Вы подымаетесь на этаж выше" << "\n";
+                            player.changingCurrentRoom(world.getNowFloor(player.getCurrentRoom().floor + 1)[world.getNowFloor(player.getCurrentRoom().floor + 1).size() - 1]);
+                        }
+                        if (command == "спуститься") {
+                            std::cout << "Вы спускаетесь на этаж ниже" << "\n";
+                            player.changingCurrentRoom(world.getNowFloor(player.getCurrentRoom().floor - 1)[world.getNowFloor(player.getCurrentRoom().floor - 1).size() - 1]);
+                        }
+                        break;
+                    }
+                    else if (room.floor == 4) {
+                        std::cout << "Вы спускаетесь на этаж ниже" << "\n";
+                        player.changingCurrentRoom(world.getNowFloor(3)[world.getNowFloor(3).size() - 1]);
+                        break;
+                    }
+                }
+                else if (room.name == direction) {
+                    player.changingCurrentRoom(room);
+                }
+            }
+        }
+        else if (command == "выйти") {
+            player.changingCurrentRoom(world.getNowFloor(player.getCurrentRoom().floor)[world.getNowFloor(player.getCurrentRoom().floor).size()-1]);
+        }
+        else if (command == "осмотреться") {
+            if (player.getCurrentRoom().name != u8"Лестница") {
+                player.getCurrentRoom().getInteractables();
+            }
+            else {
+                std::cout << "На этаже находятся: \n";
+                for (const auto& room : world.getNowFloor(player.getCurrentRoom().floor)) {
+                    std::cout << room.name << "\n";
+                }
+            }
+        }
+        else if (command == "инвентарь") {
+            player.showInventory();
+        }
+        else if (command == "перезарядить") {
+            std::string itemName;
+            int amount;
+            std::cin >> itemName >> amount;
+            player.rechargeItem(itemName, amount);
+        }
     }
 
     return 0;

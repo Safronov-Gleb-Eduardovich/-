@@ -5,8 +5,9 @@
 
 class World {
 private:
-    std::vector<Room> rooms;
+    std::vector<std::vector<Room>> rooms;
 public:
     World(const std::string& filePath);
-    Room* getStartRoom();
+    Room getStartRoom();
+    std::vector<Room> getNowFloor(int floor);
 };
