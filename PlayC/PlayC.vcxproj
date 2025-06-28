@@ -142,6 +142,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -150,6 +151,9 @@
     <None Include="..\Игра на C++\Debug\university_map.json" />
     <None Include="packages.config" />
     <None Include="university_map.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PlayC.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
