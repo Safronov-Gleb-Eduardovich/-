@@ -147,8 +147,10 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\Desktop\items.json" />
     <None Include="..\Игра на C++\Debug\dialogues.json" />
     <None Include="..\Игра на C++\Debug\university_map.json" />
+    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="university_map.json" />
   </ItemGroup>

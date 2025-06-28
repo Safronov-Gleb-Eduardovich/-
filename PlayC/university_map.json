@@ -385,8 +385,7 @@
         :
         [ "battery", "gas_can" ],
         "enemies":["paper"],
-        "interactables"
-        :
+        "interactables":
         [
           {
             "type": "Стол Декана 1",
