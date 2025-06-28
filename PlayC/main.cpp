@@ -1,27 +1,27 @@
 ﻿#include <iostream>
 #include <locale>
-#include "World.h"
-#include "Player.h"
-#include "CombatSystem.h"
-#include "DialogueSystem.h"
+#include<fstream>
 #include <conio.h> 
 #include <vector>
 #include <Windows.h>
 
+
 class StaticMenu {
 private:
+
     std::vector<std::string> items;
     int selected = 0;
     HANDLE hConsole;
 
     void showMenu() {
-        COORD pos = { 0, 2 };
+
+        COORD pos = { 0, 18 };
         SetConsoleCursorPosition(hConsole, pos);
         DWORD written;
-        FillConsoleOutputCharacter(hConsole, ' ', 80 * 25, pos, &written);
+        FillConsoleOutputCharacter(hConsole, ' ', 80 * (25 - 18), pos, &written);
 
         for (int i = 0; i < items.size(); ++i) {
-            SetConsoleCursorPosition(hConsole, { 0, (SHORT)(2 + i) });
+            SetConsoleCursorPosition(hConsole, { 45, (SHORT)(8 + i) });
             std::cout << (i == selected ? "> " : "  ") << items[i];
         }
     }
@@ -32,8 +32,7 @@ public:
         CONSOLE_CURSOR_INFO cursorInfo = { 1, FALSE };
         SetConsoleCursorInfo(hConsole, &cursorInfo);
 
-        SetConsoleCursorPosition(hConsole, { 0, 0 });
-        std::cout << "--> Меню <--";
+        SetConsoleCursorPosition(hConsole, { 0, 18 });
     }
 
     int run() {
@@ -64,78 +63,53 @@ public:
 };
 
 int main() {
-    setlocale(LC_ALL, "RUS");
+    SetConsoleOutputCP(CP_UTF8);  // Устанавливаем UTF-8 для вывода
+    SetConsoleCP(CP_UTF8);       // Устанавливаем UTF-8 для ввода
+    setlocale(LC_ALL, "ru_RU.UTF-8");
 
+    // Получаем хэндл консоли
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Меняем цвет текста на зелёный
+    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+
+    std::ifstream file("C:\\Users\\User\\Downloads\\sec.txt", std::ios::binary);
+
+    if (!file.is_open()) {
+        std::cerr << "Не удалось открыть файл!" << std::endl;
+        return 1;
+    }
+
+    // Перемещаем указатель в конец файла, чтобы узнать его размер
+    file.seekg(0, std::ios::end);
+    std::streamsize size = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    // Читаем весь файл в строку
+    std::string buffer(size, '\0');
+    if (file.read(&buffer[0], size)) {
+        // Выводим всё содержимое сразу
+        std::cout << buffer;
+    }
+
+    file.close();
+
+    //Явно прописана кодировка utf-8  
     std::vector<std::string> options = {
-        "1. Зайти в универ.",
-        "2. Не сегодня! Пары? Их я сегодня для себя отменил."
+        u8"1. Зайти в универ.",
+        u8"2. Не сегодня. Пары? Сегодня я их для себя отменил."
     };
 
     StaticMenu menu(options);
     int choice = menu.run();
     system("cls");
-    std::cout << "\n";
+
+    SetConsoleCursorPosition(hConsole, { 0, 0 });  // Устанавливаем курсор в начало
 
     if (choice == 0) {
-        std::locale::global(std::locale{ ".UTF-8" });
-        std::cout.imbue(std::locale("ru_RU.UTF-8"));
-        try {
-            World world("university_map.json");
-            Player player(world.getStartRoom());
 
-            DialogueSystem dialogues;
-            try {
-                dialogues.loadDialogues("dialogues.json");
-            }
-            catch (const std::exception& e) {
-                std::cerr << "Ошибка загрузки диалогов: " << e.what() << std::endl;
-            }
-
-            // Добавляем стартовые предметы
-            player.addItem(Item("ultrasonic_remote", 5));
-            player.addItem(Item("flamethrower", 10));
-            player.addItem(Item("battery", 3));
-
-            while (true) {
-                // Отображение текущей комнаты
-                std::cout << "--- " << player.getCurrentRoom()->name << " ---\n";
-                std::cout << player.getCurrentRoom()->description << "\n";
-
-                // Проверка на врагов
-                if (!player.getCurrentRoom()->enemies.empty()) {
-                    Enemy enemy(player.getCurrentRoom()->enemies[0], "flamethrower", 30);
-                    CombatSystem::fight(player, enemy);
-                }
-
-                // Ввод команды
-                std::string command;
-                std::cout << "> ";
-                std::cin >> command;
-
-                if (command == "идти") {
-                    std::string direction;
-                    std::cin >> direction;
-                    player.move(direction);
-                }
-                else if (command == "инвентарь") {
-                    player.showInventory();
-                }
-                else if (command == "перезарядить") {
-                    std::string itemName;
-                    int amount;
-                    std::cin >> itemName >> amount;
-                    player.rechargeItem(itemName, amount);
-                }
-            }
-        }
-        catch (const std::exception& e) {
-            std::cerr << "Критическая ошибка: " << e.what() << std::endl;
-            return 1;
-        }
-        return 0;
+        std::cout << u8"Привет\n";
     }
-    else {
-        return 0;
-    }
+
+    return 0;
 }
-    
