@@ -1,0 +1,30 @@
+[
+	{
+		"name": "go",
+		"progect_cout": "идти"
+	},
+	{
+		"name": "go out",
+		"progect_cout": "выйти"
+	},
+	{
+		"name": "look around",
+		"progect_cout": "осмотреться"
+	},
+	{
+		"name": "inventory",
+		"progect_cout": "инвентарь"
+	},
+	{
+		"name": "reloud",
+		"progect_cout": "идти"
+	},
+	{
+		"name": "go down",
+		"progect_cout": "спуститься"
+	},
+	{
+		"name": "go up",
+		"progect_cout": "подняться"
+	}
+]

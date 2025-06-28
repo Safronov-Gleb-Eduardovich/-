@@ -18,10 +18,13 @@ World::World(const std::string& filePath) {
 
     //Создание квестовых(сюжетных) комнат
     for (const auto& questRoomData : data["quest_auditors"]) {
-        Room room(questRoomData["name"], questRoomData["description"], questRoomData["floor"]);
+        Room room(questRoomData["name"], questRoomData["floors"]);
 
         for (const auto& item : questRoomData["items"]) {
             room.addItem(item);
+        }
+        for (const auto& description : questRoomData["description"]) {
+            room.addDescription(description);
         }
         for (const auto& enemy : questRoomData["enemies"]) {
             room.addEnemy(enemy);
@@ -41,10 +44,13 @@ World::World(const std::string& filePath) {
 
     for (int floor = 1; floor != 4; floor++) {
         for (int N = 1; N != dist(gen); N++) {
-            int type = dist(gen);
-            Room room(data["rooms"][type]["name"], data["rooms"][type]["description"], floor);
+            int type = 0;
+            Room room(data["rooms"][type]["name"], floor);
             for (const auto& item : data["rooms"][type]["items"]) {
                 room.addItem(item);
+            }
+            for (const auto& description : data["rooms"][type]["description"]) {
+                room.addDescription(description);
             }
             for (const auto& enemy : data["rooms"][type]["enemies"]) {
                 room.addEnemy(enemy);
@@ -55,19 +61,16 @@ World::World(const std::string& filePath) {
     }
     
     for (int floor = 0; floor != 5; floor++) {
-        Room room(data["stairs"]["name"], data["stairs"]["description"], floor);
+        Room room(data["stairs"]["name"], floor);
         rooms[floor].push_back(room);
     }
 }
 
-Room* World::getStartRoom() {
-    return &rooms[0][0];
+Room World::getStartRoom() {
+    return rooms[0][0];
 }
 
-void World::getNowFloor(int floor)
+std::vector<Room> World::getNowFloor(int floor)
 {
-    std::cout << "На этаже находятся: \n";
-    for (const auto& room : rooms[floor]) {
-        std::cout << room.name << "\n";
-    }
+    return rooms[floor];
 }

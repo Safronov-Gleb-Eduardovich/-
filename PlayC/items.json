@@ -1,0 +1,74 @@
+{
+    "Ультразвуковой пульт": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Огнемет": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Сонные благовония": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Программируемый калькулятор": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Катана": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Молекулярная микстура": {
+        "tipe": "weapon",
+        "damage": 10,
+        "max_patrn": 10,
+        "now_patrn": 10
+    },
+    "Активированный уголь": {
+        "tipe": "heal",
+        "healing": 50,
+        "max_patrn": 1,
+        "now_patrn": 1
+    },
+    "Святая вода": {
+        "tipe": "heal",
+        "healing": 50,
+        "max_patrn": 1,
+        "now_patrn": 1
+    },
+    "Зелье знаний": {
+        "tipe": "heal",
+        "healing": 50,
+        "max_patrn": 1,
+        "now_patrn": 1
+    },
+    "Икона": {
+        "tipe": "def",
+        "protection": 5,
+        "max_patrn": 1,
+        "now_patrn": 1
+    },
+    "Дух Страуструпа": {
+        "tipe": "def",
+        "protection": 5,
+        "max_patrn": 1,
+        "now_patrn": 1
+    },
+    "Шпоргалки": {
+        "tipe": "def",
+        "protection": 5,
+        "max_patrn": 1,
+        "now_patrn": 1
+    }
+}

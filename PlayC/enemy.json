@@ -1,0 +1,49 @@
+[
+    {
+        "name": "Oni",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Огнемет"
+    },
+    {
+        "name": "Mobs",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Огнемет"
+    },
+    {
+        "name": "Shadows",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Огнемет"
+    },
+    {
+        "name": "Forks",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Огнемет"
+    },
+    {
+        "name": "Books",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Ультразвуковой пульт"
+    },
+    {
+        "name": "Dolls",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Сонные благовония"
+    },
+    {
+        "name": "Reptiloids",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Молекулярная микстура"
+    },
+    {
+        "name": "Integrals",
+        "HP": 100,
+        "damage": 10,
+        "weakness": "Программируемый калькулятор"
+    }

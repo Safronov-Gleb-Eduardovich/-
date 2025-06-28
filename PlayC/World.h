@@ -8,6 +8,6 @@ private:
     std::vector<std::vector<Room>> rooms;
 public:
     World(const std::string& filePath);
-    Room* getStartRoom();
-    void getNowFloor(int floor);
+    Room getStartRoom();
+    std::vector<Room> getNowFloor(int floor);
 };

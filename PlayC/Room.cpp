@@ -1,8 +1,8 @@
 #include "Room.h"
 #include <iostream>
 
-Room::Room(std::string name, std::string desc, int floor)
-    : name(name), description(desc), floor(floor) {}
+Room::Room(std::string name, int floor)
+    : name(name), floor(floor) {}
 
 void Room::addItem(const std::string& item) {
     items.push_back(item);
@@ -10,6 +10,11 @@ void Room::addItem(const std::string& item) {
 
 void Room::addEnemy(const std::string& enemy) {
     enemies.push_back(enemy);
+}
+
+void Room::addDescription(const std::string& description)
+{
+    descriptions.push_back(description);
 }
 
 void Room::addInteractables(const std::string& interactable, const std::string& interactable_description) {
