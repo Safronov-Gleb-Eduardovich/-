@@ -81,6 +81,9 @@
     <None Include="..\..\..\..\Desktop\items.json">
       <Filter>Исходные файлы</Filter>
     </None>
+    <None Include="..\..\..\..\Desktop\enemy.json">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PlayC.rc">
